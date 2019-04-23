@@ -4,6 +4,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+/**
+ * 微信测试通道是否正常
+ */
 public class SignUtil {
     // 与接口配置信息中的Token要一致
     private static String token = "yjh";
