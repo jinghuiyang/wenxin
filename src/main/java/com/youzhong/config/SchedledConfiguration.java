@@ -31,7 +31,7 @@ public class SchedledConfiguration {
         System.out.println("Scheduling Tasks Examples: The time is now " + dateFormat().format(new Date()));
     }
 
-    //每1分钟执行一次
+    //每2个小时分钟执行一次
     @Scheduled(cron = "0 0 */2  * * ? ")
     public AccessToken reportCurrentByCron() {
         //System.out.println ("Scheduling Tasks Examples By Cron: The time is now " + dateFormat ().format (new Date ()));
