@@ -4,14 +4,6 @@ package com.youzhong.util;
 import com.youzhong.entity.AccessToken;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +11,10 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.URL;
 
@@ -99,62 +94,9 @@ public class WeixinUtil {
         }
         return jsonObject;
     }
-    public static JSONObject doGetStr(String url){
-        DefaultHttpClient httpClient = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(url);
-        JSONObject jsonObject = null;
-
-        try {
-
-            HttpResponse response = httpClient.execute(httpGet);
-            HttpEntity entity = response.getEntity();
-
-            if(entity != null){
-                String result = EntityUtils.toString(entity,"UTF-8");
-                jsonObject  = JSONObject.fromObject(result);
-            }
-
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return jsonObject;
-    }
 
 
-    public static JSONObject doPostStr(String url,String outStr){
-        DefaultHttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(url);
-        JSONObject jsonObject = null;
 
-        try {
-            httpPost.setEntity(new StringEntity(outStr,"UTF-8"));
-            HttpResponse response = httpClient.execute(httpPost);
-            String result = EntityUtils.toString(response.getEntity(),"UTF-8");
-            jsonObject = JSONObject.fromObject(result);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonObject;
-    }
-
-    /**
-     * 获取 access_token
-     * @return
-     */
-    public static AccessToken getAccessToken(){
-        AccessToken token = new AccessToken();
-        String url = ACCESS_TOKEN_URL.replace("APPID", APPID).replace("APPSECRET", APPSECRET);
-        JSONObject jsonObject = doGetStr(url);
-        if(jsonObject != null){
-            token.setToken(jsonObject.getString("access_token"));
-            token.setExpiresIn(jsonObject.getInt("expires_in"));
-        }
-        return token;
-    }
     public static AccessToken getAccessToken(String appid, String appsecret) {
         AccessToken accessToken = null;
 

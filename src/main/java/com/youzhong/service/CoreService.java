@@ -91,17 +91,17 @@ public class CoreService {
                     Article article = new Article();
                     article.setTitle("ppp");
                     article.setDescription("ooo");
-                    article.setPicUrl("http://wenxin.jinghuiyang.top/image/mv4.png");
-                    article.setUrl("http://blog.csdn.net/lyq8479");
+                    article.setPicUrl("http://wenxin.jinghuiyang.top/wenxin/image/mv4.png");
+                    article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+"wx3062a29394cca3bd"+"&redirect_uri="+"http://wenxin.jinghuiyang.top/wenxin/test&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
                     articleList.add(article);
                     // 设置图文消息个数
                     newsMessage.setArticleCount(articleList.size());
                     // 设置图文消息包含的图文集合
                     newsMessage.setArticles(articleList);
                     // 将图文消息对象转换成xml字符串
-                    String s = MessageUtil.newsMessageToXml(newsMessage);
-                    System.out.println(s);
-                    respContent=s;
+
+                    return MessageUtil.newsMessageToXml(newsMessage);
+
 
                 }
                 // 取消订阅

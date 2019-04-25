@@ -18,13 +18,15 @@ import java.util.Date;
 @EnableScheduling
 public class SchedledConfiguration {
     @Autowired
-    private AccessTokenService accessTokenService;
+    private  AccessTokenService accessTokenService;
 
     // 第三方用户唯一凭证
-    private static final String APPID = "wx3062a29394cca3bd";
+    public static final String APPID = "wx3062a29394cca3bd";
 
     // 第三方用户唯一凭证密钥
-    private static final String APPSECRET = "21c57543d22b176cede3babd5567011f";
+    public static final String APPSECRET = "21c57543d22b176cede3babd5567011f";
+
+    public static  final String url="http://wenxin.jinghuiyang.top";
 
     @Scheduled(fixedRate = 1000 * 30)
     public void reportCurrentTime() {
