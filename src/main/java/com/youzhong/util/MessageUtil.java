@@ -141,6 +141,7 @@ public class MessageUtil {
      * @return xml
      */
     public static String musicMessageToXml(MusicMessage musicMessage) {
+
         xstream.alias("xml", musicMessage.getClass());
         return xstream.toXML(musicMessage);
     }
