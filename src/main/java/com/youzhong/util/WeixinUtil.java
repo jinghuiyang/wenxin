@@ -24,9 +24,9 @@ import java.net.URL;
  */
 public class WeixinUtil {
     //微信配置的信息
-    private static final String APPID = "wx3062a29394cca3bd";
-    private static final String APPSECRET = "21c57543d22b176cede3babd5567011f";
-    private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+APPID+"&secret="+APPSECRET;
+    public static final String APPID = "wx3062a29394cca3bd";
+    public static final String APPSECRET = "21c57543d22b176cede3babd5567011f";
+    public static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + APPID + "&secret=" + APPSECRET;
 
 
     private static Logger log = LoggerFactory.getLogger(WeixinUtil.class);
@@ -34,17 +34,17 @@ public class WeixinUtil {
     /**
      * 发起https请求并获取结果
      *
-     * @param requestUrl 请求地址
+     * @param requestUrl    请求地址
      * @param requestMethod 请求方式（GET、POST）
-     * @param outputStr 提交的数据
-     * @return JSONObject(通过JSONObject.get(key)的方式获取json对象的属性值)
+     * @param outputStr     提交的数据
+     * @return JSONObject(通过JSONObject.get ( key)的方式获取json对象的属性值)
      */
     public static JSONObject httpRequest(String requestUrl, String requestMethod, String outputStr) {
         JSONObject jsonObject = null;
         StringBuffer buffer = new StringBuffer();
         try {
             // 创建SSLContext对象，并使用我们指定的信任管理器初始化
-            TrustManager[] tm = { new MyX509TrustManager() };
+            TrustManager[] tm = {new MyX509TrustManager()};
             SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
             sslContext.init(null, tm, new java.security.SecureRandom());
             // 从上述SSLContext对象中得到SSLSocketFactory对象
@@ -96,7 +96,6 @@ public class WeixinUtil {
     }
 
 
-
     public static AccessToken getAccessToken(String appid, String appsecret) {
         AccessToken accessToken = null;
 
@@ -121,37 +120,33 @@ public class WeixinUtil {
     // 菜单创建（POST） 限100（次/天）
     public static String menu_create_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 
-/**
- * 创建菜单
- *
- * @param menu 菜单实例
- * @param accessToken 有效的access_token
- * @return 0表示成功，其他值表示失败
- */
+    /**
+     * 创建菜单
+     *
+     * @param menu        菜单实例
+     * @param accessToken 有效的access_token
+     * @return 0表示成功，其他值表示失败
+     */
 
-   public static int createMenu(Menu menu, String accessToken) {
-       int result = 0;
+    public static int createMenu(Menu menu, String accessToken) {
+        int result = 0;
 
-       // 拼装创建菜单的url
-       String url = menu_create_url.replace("ACCESS_TOKEN", accessToken);
-       // 将菜单对象转换成json字符串
-       String jsonMenu = JSONObject.fromObject(menu).toString();
-       // 调用接口创建菜单
-       JSONObject jsonObject = httpRequest(url, "POST", jsonMenu);
+        // 拼装创建菜单的url
+        String url = menu_create_url.replace("ACCESS_TOKEN", accessToken);
+        // 将菜单对象转换成json字符串
+        String jsonMenu = JSONObject.fromObject(menu).toString();
+        // 调用接口创建菜单
+        JSONObject jsonObject = httpRequest(url, "POST", jsonMenu);
 
-       if (null != jsonObject) {
-           if (0 != jsonObject.getInt("errcode")) {
-               result = jsonObject.getInt("errcode");
-               log.error("创建菜单失败 errcode:{} errmsg:{}", jsonObject.getInt("errcode"), jsonObject.getString("errmsg"));
-           }
-       }
+        if (null != jsonObject) {
+            if (0 != jsonObject.getInt("errcode")) {
+                result = jsonObject.getInt("errcode");
+                log.error("创建菜单失败 errcode:{} errmsg:{}", jsonObject.getInt("errcode"), jsonObject.getString("errmsg"));
+            }
+        }
 
-       return result;
-   }
-
-
-
-
+        return result;
+    }
 
 
 }
