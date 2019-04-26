@@ -18,10 +18,10 @@ public class UserController {
 
     @RequestMapping("/test")
 
-    public String test(String code, Model model) {//重定向到这个方法
+    public void test(String code, Model model) {//重定向到这个方法
         System.out.println(code);
-        String mes = HttpUtil.post("https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx3062a29394cca3bd&secret=21c57543d22b176cede3babd5567011f&code="+code+"&grant_type=authorization_code", null);
-         //根据code获取token和openid
+        String mes = HttpUtil.post("https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx3062a29394cca3bd&secret=21c57543d22b176cede3babd5567011f&code=" + code + "&grant_type=authorization_code", null);
+        //根据code获取token和openid
         JSONObject jsonObject = JSONObject.fromObject(mes);
         String access_token = jsonObject.get("access_token").toString();
         System.out.println(access_token);
@@ -31,11 +31,24 @@ public class UserController {
         String user = HttpUtil.post("https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid + "&lang=zh_CN", null);
         //得到的用户信息
         JSONObject userObject = JSONObject.fromObject(user);
-        model.addAttribute("openid",userObject.get("openid").toString());
-        model.addAttribute("nickname",userObject.get("nickname").toString());
+        model.addAttribute("openid", userObject.get("openid").toString());
+        model.addAttribute("nickname", userObject.get("nickname").toString());
+        JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+        Client client = dcf.createClient("http://wenxin.jinghuiyang.top/services/UserBindServiceImpl?wsdl");
+        Object[] objects =new Object[0];
 
-        return "user";
+        try {
+            // invoke("方法名",参数1,参数2,参数3....);
+           objects = client.invoke("getUser", "15935932225", "123456", openid);
+           // Object[] tests = client.invoke("a", "1");
+
+            System.out.println("返回数据:" + objects[0]);
+        } catch (java.lang.Exception e) {
+            e.printStackTrace();
+        }
+
     }
+
     @ResponseBody
     @RequestMapping("/test1")
     public String test1() {
@@ -43,16 +56,16 @@ public class UserController {
     }
 
     @RequestMapping("login")
-    public void login(String tel,String password, String openid){
+    public void login(String tel, String password, String openid) {
         System.out.println(tel);
         System.out.println(password);
         System.out.println(openid);
         JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
-        Client client = dcf.createClient("http://localhost:8080/services/userWebService?wsdl");
+        Client client = dcf.createClient("http://wenxin.jinghuiyang.top/services/UserBindServiceImpl?wsdl");
         Object[] objects = new Object[0];
         try {
             // invoke("方法名",参数1,参数2,参数3....);
-            objects = client.invoke("bindUser", tel,password,openid);
+            objects = client.invoke("getUser", tel, password, openid);
             System.out.println("返回数据:" + objects[0]);
         } catch (java.lang.Exception e) {
             e.printStackTrace();
