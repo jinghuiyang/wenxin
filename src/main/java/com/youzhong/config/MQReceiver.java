@@ -14,7 +14,7 @@ import java.util.HashMap;
 @Service
 public class MQReceiver {
 
-    @JmsListener(destination = "object", containerFactory = "jmsListenerContainerTopic")
+    @JmsListener(destination = "obj")
     public void receiveObjTopic(Mes mes) throws Exception {
         System.out.println("BTopicConsumer接收到对象主题消息...." + mes.toString());
         //封装传回去的数据
