@@ -26,7 +26,7 @@ public class SchedledConfiguration {
     // 第三方用户唯一凭证密钥
     public static final String APPSECRET = "21c57543d22b176cede3babd5567011f";
 
-    public static  final String url="http://wenxin.jinghuiyang.top";
+    public static  final String url="http://yangjinghui.jinghuiyang.top";
 
     @Scheduled(fixedRate = 1000 * 30)
     public void reportCurrentTime() {
