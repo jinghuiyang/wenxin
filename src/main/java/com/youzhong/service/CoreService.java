@@ -91,8 +91,8 @@ public class CoreService {
                     Article article = new Article();
                     article.setTitle("ppp");
                     article.setDescription("ooo");
-                    article.setPicUrl("http://wenxin.jinghuiyang.top/wenxin/image/mv4.png");
-                    article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+"wx3062a29394cca3bd"+"&redirect_uri="+"http://wenxin.jinghuiyang.top/wenxin/test&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+                    article.setPicUrl("http://yangjinghui.jinghuiyang.top/image/mv4.png");
+                    article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+"wx3062a29394cca3bd"+"&redirect_uri="+"http://yangjinghui.jinghuiyang.top/test&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
                     articleList.add(article);
                     // 设置图文消息个数
                     newsMessage.setArticleCount(articleList.size());
