@@ -34,7 +34,8 @@ public class MQReceiver {
         AccessToken accessToken = WeixinUtil.getAccessToken(WeixinUtil.APPID, WeixinUtil.APPSECRET);
        String url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+accessToken.getToken();
        //将数据发送到微信端
-        JSONObject post = WeixinUtil.httpRequest(url, "post", JSONObject.fromObject(mesTemplate).toString());
+        //注意这里的请求方式必须是大写POST请求，不然微信端不处理，当异常抛出
+        JSONObject post = WeixinUtil.httpRequest(url, "POST", JSONObject.fromObject(mesTemplate).toString());
         System.out.println(post.toString());
 
     }
