@@ -21,8 +21,8 @@ public class MenuManager {
         String APPSECRET = "21c57543d22b176cede3babd5567011f";
 
         // 调用接口获取access_token
-        //AccessToken at = WeixinUtil.getAccessToken(APPID, APPSECRET);
-        AccessToken at = schedledConfiguration.reportCurrentByCron();
+        AccessToken at = WeixinUtil.getAccessToken(APPID, APPSECRET);
+        //AccessToken at = schedledConfiguration.reportCurrentByCron();
         if (null != at) {
             // 调用接口创建菜单
             int result = WeixinUtil.createMenu(getMenu(), at.getToken());
@@ -49,6 +49,10 @@ public class MenuManager {
         btn12.setName("公交查询");
         btn12.setType("click");
         btn12.setKey("12");
+        CommonButton btntop = new CommonButton();
+        btn12.setName("扫码推事件");
+        btn12.setType("scancode_push");
+
 
         CommonButton btn13 = new CommonButton();
         btn13.setName("周边搜索");
