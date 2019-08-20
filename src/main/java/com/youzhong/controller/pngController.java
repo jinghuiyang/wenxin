@@ -21,6 +21,7 @@ public class pngController {
     @ResponseBody
     public String png(String uuid, String code, HttpServletRequest request) {//接收二维码图片的方法
         request.setAttribute("uuid", uuid);
+        System.out.println("Ss");
         request.setAttribute("code", code);
         System.out.println(uuid);
         System.out.println(code);
